@@ -36,10 +36,33 @@ body {
 	border-radius: 10px;
 	overflow: hidden;
 	cursor: pointer;
+	perspective: 60rem; /* Adding perspective for 3D effect */
 }
 
 .grid-image-card img {
 	width: 100%;
 	height: 100%;
 	display: block;
+	backface-visibility: hidden;
+	position: absolute;
+}
+
+.grid-image-card img.front {
+	z-index: 2;
+	transform: rotateY(0deg);
+	transition: transform 0.5s ease;
+}
+
+.grid-image-card img.back {
+	z-index: 1;
+	transform: rotateY(180deg);
+	transition: transform 0.5s ease;
+}
+
+.card-is-flipped img.front {
+	transform: rotateY(-180deg); /* Flipping front image on hover */
+}
+
+.card-is-flipped img.back {
+	transform: rotateY(0); /* Flipping front image on hover */
 }
