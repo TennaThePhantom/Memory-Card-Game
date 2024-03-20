@@ -20,11 +20,13 @@ function updateClock() {
 	clockTimer();
 }
 
+// starts the clocks and formats it
 function clockTimer() {
 	window.onload = startClock;
 	const formattedTime = formatTime(minutes) + ":" + formatTime(seconds);
 	document.getElementById("clock").textContent = formattedTime;
 }
+
 
 function formatTime(time) {
 	return time < 10 ? "0" + time : time;
