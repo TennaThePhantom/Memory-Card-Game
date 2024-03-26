@@ -8,6 +8,17 @@ let seconds = 0;
 let minutes = 0;
 let timerInterval;
 
+const imagesFileName = [
+    "images/beerus.png",
+    "images/universe7_squad.jpg",
+    "images/broly.jpg",
+    "images/goku_black.jpg",
+    "images/kid_buu.jpg",
+    "images/cooler.avif",
+    "images/mui-goku.jpg",
+    "images/Dbs_broly_movie.jpg"
+];
+
 function startClock() {
 	timerInterval = setInterval(updateClock, 1000);
 }
