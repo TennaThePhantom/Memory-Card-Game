@@ -3,21 +3,47 @@ const mainMenu = document.querySelector(".main-menu");
 const startButton = document.getElementById("startButton");
 const clock = document.getElementById("clock");
 const container = document.getElementById("container");
+const cardsImageBack = document.querySelectorAll(".back");
 
 let seconds = 0;
 let minutes = 0;
 let timerInterval;
 
 const imagesFileName = [
-    "images/beerus.png",
-    "images/universe7_squad.jpg",
-    "images/broly.jpg",
-    "images/goku_black.jpg",
-    "images/kid_buu.jpg",
-    "images/cooler.avif",
-    "images/mui-goku.jpg",
-    "images/Dbs_broly_movie.jpg"
+	"images/beerus.png",
+	"images/universe7_squad.jpg",
+	"images/broly.jpg",
+	"images/goku_black.jpg",
+	"images/kid_buu.jpg",
+	"images/cooler.avif",
+	"images/mui-goku.jpg",
+	"images/Dbs_broly_movie.jpg",
 ];
+
+
+function shuffleImages(images) {
+    for (let card = images.length - 1; card > 0; card--) {
+        const cardPick = Math.floor(Math.random() * (card + 1));
+        [images[card], images[cardPick]] = [images[cardPick], images[card]];
+    }
+    return images;
+}
+
+
+function setGridImagesRandomly() {
+	const imagesGrid = [];
+
+	imagesFileName.forEach((fileName) => {
+		imagesGrid.push(fileName);
+		imagesGrid.push(fileName);
+	});
+
+	shuffleImages(imagesGrid);
+	cardsImageBack.forEach((card, index) => {
+		card.src = imagesGrid[index];
+	});
+	console.log(imagesGrid)
+}
 
 function startClock() {
 	timerInterval = setInterval(updateClock, 1000);
@@ -62,6 +88,7 @@ function mainMainStartGameEvent() {
 	container.style.display = "grid";
 	flipCards();
 	startClock();
+	setGridImagesRandomly()
 
 	startButton.removeEventListener("click", mainMainStartGameEvent);
 }
