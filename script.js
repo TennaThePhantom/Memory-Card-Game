@@ -9,6 +9,8 @@ let seconds = 0;
 let minutes = 0;
 let timerInterval;
 
+let mouseCardClick = [];
+
 const imagesFileName = [
 	"images/beerus.png",
 	"images/universe7_squad.jpg",
@@ -20,15 +22,13 @@ const imagesFileName = [
 	"images/Dbs_broly_movie.jpg",
 ];
 
-
 function shuffleImages(images) {
-    for (let card = images.length - 1; card > 0; card--) {
-        const cardPick = Math.floor(Math.random() * (card + 1));
-        [images[card], images[cardPick]] = [images[cardPick], images[card]];
-    }
-    return images;
+	for (let card = images.length - 1; card > 0; card--) {
+		const cardPick = Math.floor(Math.random() * (card + 1));
+		[images[card], images[cardPick]] = [images[cardPick], images[card]];
+	}
+	return images;
 }
-
 
 function setGridImagesRandomly() {
 	const imagesGrid = [];
@@ -42,7 +42,7 @@ function setGridImagesRandomly() {
 	cardsImageBack.forEach((card, index) => {
 		card.src = imagesGrid[index];
 	});
-	console.log(imagesGrid)
+	console.log(imagesGrid);
 }
 
 function startClock() {
@@ -62,6 +62,24 @@ function updateClock() {
 	clockTimer();
 }
 
+function handleCardClick(card) {
+	if (mouseCardClick.length < 2 && card.classList.contains("card-is-flipped")) {
+		mouseCardClick.push(card);
+		console.log(mouseCardClick);
+	}
+
+	if (mouseCardClick.length === 2) {
+		setTimeout(() => {
+			mouseCardClick.forEach((cardClick) => {
+				if (cardClick.classList.contains("card-is-flipped")) {
+					cardClick.classList.remove("card-is-flipped");
+				}
+			});
+			mouseCardClick = [];
+		}, 800);
+	}
+}
+
 // starts the clocks and formats it
 function clockTimer() {
 	const formattedTime = formatTime(minutes) + ":" + formatTime(seconds);
@@ -75,6 +93,7 @@ function flipCards() {
 	cards.forEach((card) => {
 		card.addEventListener("click", () => {
 			card.classList.toggle("card-is-flipped");
+			handleCardClick(card);
 		});
 	});
 }
@@ -88,8 +107,7 @@ function mainMainStartGameEvent() {
 	container.style.display = "grid";
 	flipCards();
 	startClock();
-	setGridImagesRandomly()
-
+	setGridImagesRandomly();
 	startButton.removeEventListener("click", mainMainStartGameEvent);
 }
 
