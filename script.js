@@ -10,6 +10,7 @@ let minutes = 0;
 let timerInterval;
 
 let mouseCardClick = [];
+let cardPairs = [];
 
 const imagesFileName = [
 	"images/beerus.png",
@@ -69,14 +70,27 @@ function handleCardClick(card) {
 	}
 
 	if (mouseCardClick.length === 2) {
-		setTimeout(() => {
-			mouseCardClick.forEach((cardClick) => {
-				if (cardClick.classList.contains("card-is-flipped")) {
-					cardClick.classList.remove("card-is-flipped");
-				}
-			});
-			mouseCardClick = [];
-		}, 800);
+		if (
+			mouseCardClick[0].querySelector(".back").getAttribute('src') ===
+			mouseCardClick[1].querySelector(".back").getAttribute("src")
+		) {
+			setTimeout(() => {
+				console.log("YOU MATCH ");
+				mouseCardClick.forEach((cardClick) => {
+					cardClick.style.display = "none";
+					mouseCardClick = [];
+				});
+			}, 800);
+		} else {
+			setTimeout(() => {
+				mouseCardClick.forEach((cardClick) => {
+					if (cardClick.classList.contains("card-is-flipped")) {
+						cardClick.classList.remove("card-is-flipped");
+					}
+				});
+				mouseCardClick = [];
+			}, 800);
+		}
 	}
 }
 
