@@ -66,7 +66,7 @@ function updateClock() {
 function handleCardClick(card) {
 	if (mouseCardClick.length < 2 && card.classList.contains("card-is-flipped")) {
 		mouseCardClick.push(card);
-		console.log(mouseCardClick);
+		card.style.pointerEvents = "none";
 	}
 
 	if (mouseCardClick.length === 2) {
@@ -75,10 +75,11 @@ function handleCardClick(card) {
 			mouseCardClick[1].querySelector(".back").getAttribute("src")
 		) {
 			setTimeout(() => {
-				console.log("YOU MATCH ");
 				mouseCardClick.forEach((cardClick) => {
-					cardClick.style.display = "none";
+					cardClick.style.opacity = "0";
 					mouseCardClick = [];
+					cardPairs.push(cardClick);
+					console.log(cardPairs);
 				});
 			}, 800);
 		} else {
@@ -86,6 +87,7 @@ function handleCardClick(card) {
 				mouseCardClick.forEach((cardClick) => {
 					if (cardClick.classList.contains("card-is-flipped")) {
 						cardClick.classList.remove("card-is-flipped");
+						cardClick.style.pointerEvents = "auto"
 					}
 				});
 				mouseCardClick = [];
@@ -125,4 +127,15 @@ function mainMainStartGameEvent() {
 	startButton.removeEventListener("click", mainMainStartGameEvent);
 }
 
+function gameOverScreen(){
+    const gameOverContainer = document.querySelector(".game-over-screen");
+    const body = document.body;
+
+    body.append(gameOverContainer);
+}
+
 mainMenuStartGame();
+
+if(cardPairs.length === 16){
+	gameOverScreen();
+}

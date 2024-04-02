@@ -123,3 +123,10 @@ body {
 .card-is-flipped img.back {
 	transform: rotateY(0); /* Flipping front image on hover */
 }
+
+.game-over-screen {
+	height: 30vh;
+	width: 50%;
+	background-color: green;
+	z-index: 1000;
+}
