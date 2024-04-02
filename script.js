@@ -71,7 +71,7 @@ function handleCardClick(card) {
 
 	if (mouseCardClick.length === 2) {
 		if (
-			mouseCardClick[0].querySelector(".back").getAttribute('src') ===
+			mouseCardClick[0].querySelector(".back").getAttribute("src") ===
 			mouseCardClick[1].querySelector(".back").getAttribute("src")
 		) {
 			setTimeout(() => {
@@ -80,6 +80,10 @@ function handleCardClick(card) {
 					mouseCardClick = [];
 					cardPairs.push(cardClick);
 					console.log(cardPairs);
+					if (cardPairs.length === 16) {
+						console.log("GAMEEEEEEEEEEEEEEEE");
+						gameOverScreen();
+					}
 				});
 			}, 800);
 		} else {
@@ -87,7 +91,7 @@ function handleCardClick(card) {
 				mouseCardClick.forEach((cardClick) => {
 					if (cardClick.classList.contains("card-is-flipped")) {
 						cardClick.classList.remove("card-is-flipped");
-						cardClick.style.pointerEvents = "auto"
+						cardClick.style.pointerEvents = "auto";
 					}
 				});
 				mouseCardClick = [];
@@ -127,15 +131,15 @@ function mainMainStartGameEvent() {
 	startButton.removeEventListener("click", mainMainStartGameEvent);
 }
 
-function gameOverScreen(){
-    const gameOverContainer = document.querySelector(".game-over-screen");
-    const body = document.body;
+function gameOverScreen() {
+	const gameOverContainerClass = document.querySelector(".game-over-screen");
+	const gameOverContainer = document.createElement("div");
+	gameOverContainer.classList.add(gameOverContainerClass);
+	gameOverContainer.textContent = "GAME OVER";
+	const body = document.body;
+	container.style.display = "none";
 
-    body.append(gameOverContainer);
+	body.append(gameOverContainer);
 }
 
 mainMenuStartGame();
-
-if(cardPairs.length === 16){
-	gameOverScreen();
-}

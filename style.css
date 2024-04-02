@@ -127,6 +127,6 @@ body {
 .game-over-screen {
 	height: 30vh;
 	width: 50%;
-	background-color: green;
+	background-color: black;
 	z-index: 1000;
 }
