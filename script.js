@@ -80,7 +80,7 @@ function handleCardClick(card) {
 					mouseCardClick = [];
 					cardPairs.push(cardClick);
 					console.log(cardPairs);
-					if (cardPairs.length === 16) {
+					if (cardPairs.length === 2) {
 						console.log("GAMEEEEEEEEEEEEEEEE");
 						gameOverScreen();
 					}
@@ -132,14 +132,61 @@ function mainMainStartGameEvent() {
 }
 
 function gameOverScreen() {
-	const gameOverContainerClass = document.querySelector(".game-over-screen");
+	stopClock();
 	const gameOverContainer = document.createElement("div");
-	gameOverContainer.classList.add(gameOverContainerClass);
-	gameOverContainer.textContent = "GAME OVER";
+	const text1 = document.createElement("p");
+	const text2 = document.createElement("p");
+	const text3 = document.createElement("p");
+	const resetGameButton = document.createElement("button");
+	resetGameButton.textContent = "Play Again";
+	resetGameButton.classList.add("game-over-button");
+	gameOverContainer.classList.add("game-over-screen");
+	text1.classList.add("game-over-text1");
+	text2.classList.add("game-over-text2");
+	text3.classList.add("game-over-text3");
+
+	text1.textContent = "GAME OVER";
+	text3.textContent = "Do you want to play again?"
+
+	if (seconds < 60) {
+		text2.textContent = `It took you ${seconds} seconds to get all the pairs`;
+	} else if ((minutes = 1)) {
+		text2.textContent = `It took you ${minutes} min and ${seconds} seconds to get all the pairs`;
+	} else if (minutes >= 1) {
+		`It took you ${minutes} minutes and ${seconds} seconds to get all the pairs`;
+	}
 	const body = document.body;
 	container.style.display = "none";
-
 	body.append(gameOverContainer);
+	gameOverContainer.append(text1, text2, text3, resetGameButton);
+	resetGameButton.addEventListener("click", restGame);
 }
+
+
+function restGame(){
+	stopClock();
+	clearInterval(timerInterval);
+	seconds = 0
+	minutes = 0;
+    mouseCardClick = [];
+    cardPairs = [];
+    clock.textContent = "00:00";
+	cards.forEach(card => {
+        card.classList.remove("card-is-flipped");
+        card.style.pointerEvents = "auto";
+        card.style.opacity = "1";
+    });
+	const gameOverContainer = document.querySelector(".game-over-screen");
+    if (gameOverContainer) {
+        gameOverContainer.remove();
+    }
+    mainMenu.style.display = "none";
+    container.style.display = "grid";
+	clockTimer();
+	startClock();
+	setGridImagesRandomly();
+}
+
+
 
 mainMenuStartGame();
