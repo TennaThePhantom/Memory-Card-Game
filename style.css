@@ -7,6 +7,8 @@
 :root {
 	--beige-color: #d49559;
 	--black-color: #000000;
+	--bright-green: rgb(7, 255, 7);
+	--bright-green2: rgb(117, 243, 95);
 }
 body {
 	height: 100vh;
@@ -41,7 +43,7 @@ body {
 	cursor: pointer;
 	border-radius: 4px;
 	border: none;
-	background-color: rgb(7, 255, 7);
+	background-color: var(--bright-green);
 	font-size: 1.8rem;
 	font-weight: 600;
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -131,13 +133,14 @@ body {
 	display: block;
 	height: 50vh;
 	width: 50%;
-	background-color: rgb(78, 197, 78);
+	background-color: var(--bright-green);
 	z-index: 1000;
 	color: black;
 	text-align: center;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	font-weight: 600;
 	font-size: 2rem;
+	border-radius: 5px;
 }
 
 .game-over-text1{
@@ -154,11 +157,14 @@ body {
 }
 
 .game-over-button{
+
 	position: relative;
 	top: 25%;
 	padding: 25px 50px;
 	border: none;
 	border-radius: 5px;
-	background-color: rgb(7, 255, 7);
+	background-color: var(--bright-green2);
 	cursor: pointer;
+	font-size: 1.5rem;
+	color: var(--black-color);
 }
